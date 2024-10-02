@@ -10,7 +10,7 @@ import { getAuth } from "firebase/auth";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCpvLqAQfVq-wsfkMuMU6YFozcqcOcuyAg",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "onroute-cce97.firebaseapp.com",
   projectId: "onroute-cce97",
   storageBucket: "onroute-cce97.appspot.com",

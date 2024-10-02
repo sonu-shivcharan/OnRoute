@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const RiderPage = () => {
-  return (
-    <div>RiderPage</div>
-  )
-}
+  return <div>RiderPage</div>;
+};
 
-export default RiderPage
+export default RiderPage;

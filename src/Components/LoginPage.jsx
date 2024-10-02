@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const [category, setCategory] = useState("passenger");
+  const navigate = useNavigate();
+
+  console.log(category)
+  const handleGoogleAuth = async () => {
+    const provider = new GoogleAuthProvider();
+    console.log(provider);
+
+    const result = await signInWithPopup(auth, provider);
     
-  const handleGoogleAuth = async (e) => {
-    const provider = await new GoogleAuthProvider();
-    return signInWithPopup(auth, provider)
-};
+    if(result && category === 'rider'){
+      navigate('/rider')
+      console.log('display rider component')
+    }else if(result && category === 'passenger'){
+      navigate('/passenger')
+      console.log('display passenger component')
+    }
+
+    console.log(result.user);
+  };
 
   return (
     <div className="min-h-screen w-full bg-gray-600 flex items-center justify-center">
@@ -67,11 +83,11 @@ const LoginPage = () => {
             <select
               id="category"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+              onChange={(e) => setCategory(e.target.value)}
             >
-              <option value="">Select a category</option>
-              <option value="student">Rider</option>
-              <option value="professional">Student</option>
-              <option value="other">Other</option>
+              <option value="passenger">Passenger</option>
+              <option value="rider">Rider</option>
             </select>
           </div>
           <button
@@ -96,4 +112,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
