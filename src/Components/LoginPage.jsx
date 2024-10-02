@@ -1,20 +1,27 @@
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [category, setCategory] = useState("passenger");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
-  console.log(category)
+  const handleLoginWithEmailAndPassword=async (e)=>{
+    e.preventDefault();
+    const userCrendentials = await signInWithEmailAndPassword(auth, email,password);
+    console.log(userCrendentials.user);
+    navigate("/rider");
+    alert("sign in success")
+  }
   const handleGoogleAuth = async () => {
     const provider = new GoogleAuthProvider();
     console.log(provider);
-
     const result = await signInWithPopup(auth, provider);
-    
     if(result && category === 'rider'){
       navigate('/rider')
       console.log('display rider component')
@@ -30,21 +37,8 @@ const LoginPage = () => {
     <div className="min-h-screen w-full bg-gray-600 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-2xl w-96">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-        <form>
-          <div className="mb-4">
-            <label
-              htmlFor="username"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your username"
-            />
-          </div>
+        <form onSubmit={handleLoginWithEmailAndPassword}>
+          
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -55,6 +49,8 @@ const LoginPage = () => {
             <input
               type="email"
               id="email"
+              name="email"
+              onChange={(e)=>{setEmail(e.target.value)}}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your email"
             />
@@ -69,6 +65,8 @@ const LoginPage = () => {
             <input
               type="password"
               id="password"
+              name="password"
+              onChange={(e)=>{setPassword(e.target.value)}}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your password"
             />
