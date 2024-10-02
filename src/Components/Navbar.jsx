@@ -38,9 +38,9 @@ const Navbar = () => {
         </div>
       </div>
       <div className={`${isOpen ? 'block' : 'hidden'} md:hidden`}>
-        <a href='#' className='block py-2 px-4 text-sm hover:bg-gray-200'>Home</a>
-        <a href='#' className='block py-2 px-4 text-sm hover:bg-gray-200'>About</a>
-        <a href='#' className='block py-2 px-4 text-sm hover:bg-gray-200'>Contact</a>
+        <h1 className='block py-2 px-4 text-sm hover:bg-gray-200'>Home</h1>
+        <h1 className='block py-2 px-4 text-sm hover:bg-gray-200'>About</h1>
+        <h1 className='block py-2 px-4 text-sm hover:bg-gray-200'>Contact</h1>
       </div>
     </nav>
   )
