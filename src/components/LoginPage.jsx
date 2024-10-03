@@ -22,10 +22,12 @@ const LoginPage = () => {
       email,
       password
     );
-    setUserId(userCrendentials.user.uid);
-    setRole("rider")
-    navigate("/dashboard");
+    const user = userCrendentials.user;
+    setUserId(user.uid);
+    setRole("rider");
+    setCookie(user.uid, "rider");
     alert("sign in success");
+    navigate("/dashboard");
   };
   const handleLoginWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
@@ -42,6 +44,7 @@ const LoginPage = () => {
       });
       setUserId(user.uid);
       setRole("passenger")
+      setCookie(user.uid, "passenger");
       navigate("/dashboard");
     } catch (err) {
       console.log("Something went wrong", err);
@@ -126,5 +129,11 @@ const LoginPage = () => {
     </div>
   );
 };
+function setCookie(userId, role){
+  const expirationDate = new Date();
+  expirationDate.setDate(expirationDate.getDate() + 7);
+  document.cookie = `userId=${userId}; expires=${expirationDate.toUTCString()}; path=/`;
+  document.cookie = `role=${role}; expires=${expirationDate.toUTCString()}; path=/`;
+}
 
 export default LoginPage;
