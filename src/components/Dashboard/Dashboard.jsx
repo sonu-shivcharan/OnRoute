@@ -4,8 +4,9 @@ import RiderPage from "../RiderPage";
 import { UserContext } from "../../contexts/UserContext";
 import Navbar from "./Navbar/Navbar";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../firebase/firebaseConfig";
+import { auth, db } from "../../firebase/firebaseConfig";
 import Content from "./Content/Content";
+import { onAuthStateChanged } from "firebase/auth";
 
 function Dashboard() {
   const { userId, role, setUserId } = useContext(UserContext);
@@ -15,18 +16,24 @@ function Dashboard() {
   // Fetch the userId from the cookie if it's not set in the context
   useEffect(() => {
     if (!userId) {
-      const uid = getCookie("userId");
-      if (uid) {
-        setUserId(uid);
-        console.log("User ID fetched from cookie:", uid);
-      }
+      let uid;
+      onAuthStateChanged(auth, (user)=>{
+        if(user){
+          uid=user.uid;
+          setUserId(uid)
+          console.log("auth",user);
+        }
+      })
     }
-  }, [userId, setUserId]);
+  }, []);
 
   // Fetch user details only when userId and role are available
   useEffect(() => {
     const getData = async () => {
-      if (!userId || !role) return; // Return early if userId or role isn't available yet
+      if (!userId || !role){
+        console.log("ccc", userId);
+        return;
+      }  // Return early if userId or role isn't available yet
 
       console.log("Getting details for role:", role);
       const docRef = doc(db, `${role}s`, userId); // Construct the document path using role and userId
@@ -50,7 +57,7 @@ function Dashboard() {
   }, [userId, role]);
 
   if (loading) {
-    return <div>Loading...</div>; // Display a loading state until the data is ready
+    return <div className="h-screen w-screen flex justify-center items-center text-2xl font-bold">Loading...</div>; // Display a loading state until the data is ready
   }
 
   return (
@@ -63,18 +70,3 @@ function Dashboard() {
 
 export default Dashboard;
 
-function getCookie(cookieName) {
-  const name = cookieName + "=";
-  const decodedCookie = decodeURIComponent(document.cookie);
-  const ca = decodedCookie.split(";");
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) === " ") {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) === 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
