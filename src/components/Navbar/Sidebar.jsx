@@ -1,9 +1,6 @@
 import React from 'react'
-import Home from "../Home/Home";
-import About from "../About/About";
-import Contact from "../Contact/Contact";
 import { Link } from 'react-router-dom';
-import LoginPage from '../LoginPage';
+import MenuItems from './MenuItems';
 function Sidebar({isOpen, setIsOpen}) {
   return (
     <div
@@ -17,31 +14,7 @@ function Sidebar({isOpen, setIsOpen}) {
     >
       ✕
     </button>
-    <div className="flex flex-col gap-6 mt-10">
-      <Link to="/" element={<Home />}>
-        <h1 className="py-4 px-2 font-semibold hover:text-[#2669D4] transition duration-300">
-          Home
-        </h1>
-      </Link>
-
-      <Link to='/about' element={<About />}>
-        <h1 className="py-4 px-2 font-semibold hover:text-[#2669D4] transition duration-300">
-          About
-        </h1>
-      </Link>
-
-      <Link to='/contact' element={<Contact />}>
-        <h1 className="py-4 px-2 font-semibold hover:text-[#2669D4] transition duration-300">
-          Contact
-        </h1>
-      </Link>
-
-      <Link to="/login/passenger" element={<LoginPage />}>
-        <button className="py-3 bg-[#2669D4] px-6 rounded-full font-semibold transition duration-300">
-          Login
-        </button>
-      </Link>
-    </div>
+    <MenuItems/>
   </div>
   )
 }

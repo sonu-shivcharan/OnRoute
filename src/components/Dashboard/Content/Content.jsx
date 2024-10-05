@@ -1,58 +1,62 @@
 import React, { useState } from "react";
-import RiderPage from "./RiderPage";
-import Passenger from "./Passenger";
-import { useParams } from "react-router-dom";
-function Content({role, userName }) {
-
-  console.log("from content ", role);
+import RouteForm from "./RouteForm";
+import RouteCard from "./RouteCard";
+function Content({ role, userDetails }) {
+  const { displayName: userName, photoURL } = userDetails;
   const [search, setSearch] = useState("");
   const [destination, setDestination] = useState("");
-  const [filteredLocations, setFilteredLocations] = useState([]);
-  const startLocations = [
-    "Pune",
-    "Pimpri",
-    "Chinchwad",
-    "Nigdi",
-    "Bhosari",
-    "Khadaki",
-  ];
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (role === "passenger") {
-      console.log(`Searching for a lift to ${search}`);
-      // Add logic to search for lifts based on the destination
-    } else if (role === "rider") {
-      console.log(`Offering a ride to ${destination}`);
-      // Add logic to offer a ride to the specified destination
-    }
-  };
-
+  const [isRouteAdded, setRouteAdded] = useState(false);
+  const [foundRoutes, setFoundRoutes] = useState(null);
+  const instructions =
+    role === "passenger"
+      ? "Enter your destination to search for available rides."
+      : "List your route and help passengers along the way!";
+  console.log("found routes", foundRoutes);
+  const condition = role === "passenger" ? foundRoutes : isRouteAdded;
   return (
-    <div className="container mx-auto bg-gray-100 w-full min-h-screen pt-16">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold">
-          {role === "passenger"
-            ? `Welcome, ${userName.split(" ")[0]}! Ready to find a lift?`
-            : `Welcome, ${userName}! Ready to offer a ride?`}
-        </h1>
-        <p className="text-lg">
-          {role === "passenger"
-            ? "Enter your destination to search for available rides."
-            : "List your route and help passengers along the way!"}
-        </p>
+    <>
+      <div className="w-full bg-white/60 px-4 text-gray-700 backdrop-blur p-2 fixed top-0 z-50">
+        <div className="container flex justify-between items-center mx-auto ">
+          <div>
+            <span className="text-xl font-bold">
+              {role === "passenger"
+                ? `Welcome, ${userName.split(" ")[0]}!`
+                : `Welcome, ${userName}!`}
+            </span>
+          </div>
+          <div>
+            <img src={photoURL} className="rounded-full w-10"></img>
+          </div>
+        </div>
       </div>
-      {role === "passenger" ? (
-        <Passenger
-          search={search}
-          setSearch={setSearch}
-          startLocations={startLocations}
-          filteredLocations={filteredLocations}
-          setFilteredLocations={setFilteredLocations}
-        />
-      ) : (
-        <RiderPage />
-      )}
-    </div>
+      <div className="container mx-auto bg-gray-100 w-full min-h-screen pt-16">
+        <div className="text-center">
+          <p className="text-2xl mx-8  py-5 font-bold">
+            {instructions}
+          </p>
+        </div>
+
+          <RouteForm
+            role={role}
+            uid={userDetails.uid}
+            setRouteAdded={setRouteAdded}
+            search={search}
+            setSearch={setSearch}
+            setDestination={setDestination}
+            destination={destination}
+            setFoundRoutes={setFoundRoutes}
+          />
+
+          {(isRouteAdded || foundRoutes) && <RouteCard
+            role={role}
+            foundRoutes={foundRoutes}
+            start={search}
+            end={destination}
+            uid ={userDetails.uid}
+          />}
+
+      </div>
+    </>
   );
 }
 

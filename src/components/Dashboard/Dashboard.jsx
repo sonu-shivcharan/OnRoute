@@ -63,7 +63,7 @@ function Dashboard() {
   return (
     <div>
       {/* <Navbar userDetails={userDetails} /> */}
-      <Content role={role} userName={userDetails.displayName || "Guest"} />
+      <Content role={role} userName={userDetails.displayName || "Guest"} userDetails={userDetails}/>
     </div>
   );
 }

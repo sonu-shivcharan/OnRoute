@@ -11,19 +11,17 @@ const Navbar = () => {
   console.log(scrollTop);
   const [isOpen, setIsOpen] = useState(false);
   return (
-  <nav id="nav" className="fixed  w-full text-white z-30 px-5">
-  <div className={`flex justify-around items-center max-w-6xl mx-auto px-4 mt-2 rounded-xl ${scrollTop>100? "bg-black/30 backdrop-blur": "bg-transparent"} duration-200`}>
+  <nav id="nav" className="fixed w-full text-white z-30 px-5">
+  <div className={`flex justify-center items-center max-w-4xl mx-auto px-4 mt-2 rounded-xl ${scrollTop>100? "bg-black/30 backdrop-blur": "bg-transparent"} duration-200`}>
     <div className="flex justify-between">
       {/* Logo Section */}
       <div className="flex space-x-7">
-        <div>
         <Link to="/"  className="flex items-center py-4 gap-2">
             <img src={logo} alt="Logo" className="rounded-xl w-[6%] mr-2" />
-            <span className="tracking-normal text-3xl font-bold">
+            <span className="tracking-normal text-2xl font-bold">
               OnRoute
             </span>
           </Link>
-        </div>
       </div>
 
       {/* Hamburger Menu for Sidebar */}

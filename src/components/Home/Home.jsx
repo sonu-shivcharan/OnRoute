@@ -4,7 +4,7 @@ import bg from "./../../assets/bg.jpg"
 function Home() {
   return (
     <div id="home" className="bg-black/5 min-h-screen w-full text-white bg-center bg-no-repeat bg-cover" style={{
-        background:`linear-gradient(transparent, rgba(0,0,0,0.7),black), url(${bg})`,
+        background:`linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7),black), url(${bg})`,
         backgroundPosition:"center"
     }}>
       

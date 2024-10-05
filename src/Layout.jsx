@@ -13,10 +13,9 @@ function Layout() {
   const isDashboard = pathname.includes("dashboard");
   return (
     <UserProvider value={{ userId, role, setUserId, setRole }}>
-      {/* {isDashboard ? <Dashboard /> : <LoginPage />} */}
-      <Navbar/>
+      {!isDashboard && <Navbar/>}
       <Outlet/>
-      <Footer/>
+      {!isDashboard && <Footer/>}
     </UserProvider>
   );
 }
