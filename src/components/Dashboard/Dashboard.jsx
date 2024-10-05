@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import Passenger from "../Passenger";
-import RiderPage from "../RiderPage";
 import { UserContext } from "../../contexts/UserContext";
-import Navbar from "./Navbar/Navbar";
+// import Navbar from "./Navbar/Navbar";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase/firebaseConfig";
 import Content from "./Content/Content";
 import { onAuthStateChanged } from "firebase/auth";
+import { useParams } from "react-router-dom";
 
 function Dashboard() {
-  const { userId, role, setUserId } = useContext(UserContext);
+  const {role} = useParams("role");
+  const { userId, setUserId } = useContext(UserContext);
   const [userDetails, setUserDetails] = useState({});
   const [loading, setLoading] = useState(true); // Add a loading state
 
@@ -62,7 +62,7 @@ function Dashboard() {
 
   return (
     <div>
-      <Navbar userDetails={userDetails} />
+      {/* <Navbar userDetails={userDetails} /> */}
       <Content role={role} userName={userDetails.displayName || "Guest"} />
     </div>
   );

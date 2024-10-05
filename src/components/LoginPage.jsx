@@ -6,14 +6,15 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth, db } from "../firebase/firebaseConfig";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
 import { UserContext } from "../contexts/UserContext";
 
 const LoginPage = () => {
+  const {role} = useParams("role");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {setUserId, setRole} = useContext(UserContext);
+  const {setUserId} = useContext(UserContext);
   const navigate = useNavigate();
   const handleLoginWithEmailAndPassword = async (e) => {
     e.preventDefault();
@@ -24,9 +25,8 @@ const LoginPage = () => {
     );
     const user = userCrendentials.user;
     setUserId(user.uid);
-    setRole("rider");
     alert("sign in success");
-    navigate("/dashboard");
+    navigate("/dashboard/rider");
   };
   const handleLoginWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
@@ -42,9 +42,7 @@ const LoginPage = () => {
         role: "passenger",
       });
       setUserId(user.uid);
-      setRole("passenger")
-
-      navigate("/dashboard");
+      navigate("/dashboard/passenger");
     } catch (err) {
       console.log("Something went wrong", err);
     }
@@ -54,7 +52,7 @@ const LoginPage = () => {
     <div className="min-h-screen w-full bg-gray-600 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-2xl w-96">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-        <form onSubmit={handleLoginWithEmailAndPassword}>
+       {role==="rider"? <form onSubmit={handleLoginWithEmailAndPassword}>
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -114,16 +112,21 @@ const LoginPage = () => {
           >
             Sign In
           </button>
-        </form>
+        </form> :
         <div className="mt-4">
-          <button
-            onClick={handleLoginWithGoogle}
-            className="w-full flex items-center justify-center bg-white border border-gray-300 rounded-md py-2 px-4 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          >
-            <FcGoogle className="w-5 h-5 mr-2" />
-            Sign in with Google
-          </button>
-        </div>
+        <button
+          onClick={handleLoginWithGoogle}
+          className="w-full flex items-center justify-center bg-white border border-gray-300 rounded-md py-2 px-4 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          <FcGoogle className="w-5 h-5 mr-2" />
+          Sign in with Google
+        </button>
+      </div>
+        
+      
+      }
+
+        
       </div>
     </div>
   );

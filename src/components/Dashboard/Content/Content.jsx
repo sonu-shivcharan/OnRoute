@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import RiderPage from "./RiderPage";
 import Passenger from "./Passenger";
-function Content({ role, userName }) {
+import { useParams } from "react-router-dom";
+function Content({role, userName }) {
+
+  console.log("from content ", role);
   const [search, setSearch] = useState("");
   const [destination, setDestination] = useState("");
   const [filteredLocations, setFilteredLocations] = useState([]);

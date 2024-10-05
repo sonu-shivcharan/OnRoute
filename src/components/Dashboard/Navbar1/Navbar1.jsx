@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import logo from "../../../assets/logo.jpg";
-const Navbar = ({ userDetails }) => {
+const Navbar1 = ({ userDetails }) => {
   const { displayName: name, photoURL, email="" } = userDetails;
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -138,4 +138,4 @@ const Navbar = ({ userDetails }) => {
   );
 };
 
-export default Navbar;
+export default Navbar1;

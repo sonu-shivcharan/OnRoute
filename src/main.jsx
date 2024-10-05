@@ -5,10 +5,16 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } 
 import Layout from "./Layout.jsx";
 import LoginPage from "./components/LoginPage.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
+import Home from "./components/Home/Home.jsx";
+import About from "./components/About/About.jsx";
+import Contact from "./components/Contact/Contact.jsx";
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout/>}>
-    <Route path="" element={<LoginPage/>} />
-    <Route path="/dashboard" element={<Dashboard/>} />
+    <Route path="login/:role" element={<LoginPage/>} /> 
+    <Route path="" element={<Home/>} />
+    <Route path="/about" element={<About/>} />
+    <Route path="/contact" element={<Contact/>} />
+    <Route path="/dashboard/:role" element={<Dashboard/>} />
   </Route>
 ))
 createRoot(document.getElementById("root")).render(
