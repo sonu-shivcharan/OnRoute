@@ -4,11 +4,15 @@ import { Link } from "react-router-dom";
 
 import Sidebar from "./Sidebar";
 const Navbar = () => {
+  const [scrollTop, setScrollTop] = useState(0);
+  window.addEventListener("scroll", ()=>{
+    setScrollTop(window.scrollY);
+  })
+  console.log(scrollTop);
   const [isOpen, setIsOpen] = useState(false);
-
   return (
-  <nav id="nav" className="fixed mx-auto bg-transparent w-full text-white">
-  <div className="max-w-6xl mx-auto px-4">
+  <nav id="nav" className="fixed  w-full text-white z-30 px-5">
+  <div className={`flex justify-around items-center max-w-6xl mx-auto px-4 mt-2 rounded-xl ${scrollTop>100? "bg-black/30 backdrop-blur": "bg-transparent"} duration-200`}>
     <div className="flex justify-between">
       {/* Logo Section */}
       <div className="flex space-x-7">
@@ -23,7 +27,7 @@ const Navbar = () => {
       </div>
 
       {/* Hamburger Menu for Sidebar */}
-      <div className="flex items-center">
+      <div className="flex items-center bg-black/30 backdrop-blur rounded-md my-3 duration-200 p-3">
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="outline-none mobile-menu-button"

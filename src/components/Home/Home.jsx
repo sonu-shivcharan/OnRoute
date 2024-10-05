@@ -5,6 +5,7 @@ function Home() {
   return (
     <div id="home" className="bg-black/5 min-h-screen w-full text-white bg-center bg-no-repeat bg-cover" style={{
         background:`linear-gradient(transparent, rgba(0,0,0,0.7),black), url(${bg})`,
+        backgroundPosition:"center"
     }}>
       
       <main className="container mx-auto px-4 flex items-center justify-center py-16 h-screen">
