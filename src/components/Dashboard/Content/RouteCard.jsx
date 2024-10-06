@@ -1,9 +1,13 @@
 import { ref, set } from "firebase/database";
-import React from "react";
+import React, { useState } from "react";
 import { rtdb } from "../../../firebase/firebaseConfig";
+import RouteDetails from "./RouteDetails";
 
-function RouteCard({ start, end, role, foundRoutes , uid}) {
+function RouteCard({ start, end, role, foundRoutes , uid, routeIds}) {
+  const [isCollapsed, setIsCollapsed] = useState(false); // State to manage collapse
   const isPassenger = role === "passenger";
+    
+
   const handleRequestForLift=(userId)=>{
     const liftRequestRef = ref(rtdb, "resquetsForLift/"+userId);
     set(liftRequestRef, {
@@ -17,7 +21,7 @@ function RouteCard({ start, end, role, foundRoutes , uid}) {
   if (isPassenger) {
     return (
       <div className="flex justify-center flex-wrap p-5 gap-6">
-        <h1 className="w-full text-2xl font-bold">Routes Found</h1>
+        <h1 className="w-full text-center text-2xl font-bold">{foundRoutes.length>0? "Rides Found":"No Rides Found1"}</h1>
         {foundRoutes &&
           foundRoutes.map(
             (
@@ -69,13 +73,11 @@ function RouteCard({ start, end, role, foundRoutes , uid}) {
     );
   } else {
     return (
-      <div className="mx-auto px-7 my-10">
-        <h1 className="font-bold text-2xl">Route Added</h1>
-        <div className="font-bold text-xl">
-          {start}-&gt;{end}
-        </div>
-        <button>See Requests</button>
-      </div>
+     <RouteDetails
+     start={start}
+     end={end}
+     requests={[1]}
+     />
     );
   }
 }

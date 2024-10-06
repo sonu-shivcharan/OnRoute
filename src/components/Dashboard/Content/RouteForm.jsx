@@ -19,7 +19,7 @@ const RouteForm = ({
   setSearch,
   destination,
   setDestination,
-  setFoundRoutes
+  setFoundRoutes, setRouteIds
 }) => {
   const [filteredLocationsStart, setFilteredLocationsStart] = useState([]);
   const [filteredLocationsEnd, setFilteredLocationsEnd] = useState([]);
@@ -60,6 +60,8 @@ const RouteForm = ({
     const journeyRef = ref(rtdb, "addedJournies");
     onValue(journeyRef, (snapshot) => {
       const data = snapshot.val();
+      const keysInRoutes = Object.keys(data);
+      setRouteIds(keysInRoutes);
       const routes = [];
       for(let key in data){
         const current = data[key];

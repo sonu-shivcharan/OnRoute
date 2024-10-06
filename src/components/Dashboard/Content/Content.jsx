@@ -7,6 +7,7 @@ function Content({ role, userDetails }) {
   const [destination, setDestination] = useState("");
   const [isRouteAdded, setRouteAdded] = useState(false);
   const [foundRoutes, setFoundRoutes] = useState(null);
+  const [routeIds, setRouteIds] = useState([])
   const instructions =
     role === "passenger"
       ? "Enter your destination to search for available rides."
@@ -36,7 +37,7 @@ function Content({ role, userDetails }) {
           </p>
         </div>
 
-          <RouteForm
+        {!isRouteAdded && <RouteForm
             role={role}
             uid={userDetails.uid}
             setRouteAdded={setRouteAdded}
@@ -45,7 +46,8 @@ function Content({ role, userDetails }) {
             setDestination={setDestination}
             destination={destination}
             setFoundRoutes={setFoundRoutes}
-          />
+            setRouteIds={setRouteIds}
+          />}
 
           {(isRouteAdded || foundRoutes) && <RouteCard
             role={role}
@@ -53,6 +55,7 @@ function Content({ role, userDetails }) {
             start={search}
             end={destination}
             uid ={userDetails.uid}
+            routeIds={routeIds}
           />}
 
       </div>
