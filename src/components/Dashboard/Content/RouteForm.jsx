@@ -108,7 +108,7 @@ const RouteForm = ({
       : ["Add Route", "Adding..."];
 
   return (
-    <div className="w-full bg-gray-100  flex items-center justify-center">
+    <div className="w-full flex items-center justify-center">
       <div className="bg-white p-6 rounded-lg shadow-md w-[30rem] mx-auto">
         <h2 className="text-2xl font-bold mb-4 text-center">
           {role === "passenger" ? "Passenger" : "Rider"} Journey
@@ -134,7 +134,7 @@ const RouteForm = ({
 
             {/* Dropdown for filtered locations */}
             {filteredLocationsStart.length > 0 && (
-              <ul className="border border-gray-300 mt-2 rounded-md bg-white shadow-lg max-h-40 min-w-[15rem] overflow-auto fixed ">
+              <ul className="border border-gray-300 mt-2 rounded-md bg-white shadow-lg max-h-40 min-w-[15rem] overflow-auto ">
                 {filteredLocationsStart.map((location, index) => (
                   <li
                     key={index}
@@ -165,7 +165,7 @@ const RouteForm = ({
               required={true}
             />
             {filteredLocationsEnd.length > 0 && (
-              <ul className="border border-gray-300 mt-2 rounded-md bg-white shadow-lg max-h-40 min-w-[15rem] overflow-auto fixed ">
+              <ul className="border border-gray-300 mt-2 rounded-md bg-white shadow-lg max-h-40 min-w-[15rem] overflow-auto">
                 {filteredLocationsEnd.map((location, index) => (
                   <li
                     key={index}

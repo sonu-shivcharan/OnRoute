@@ -21,7 +21,7 @@ function Content({ role, userDetails }) {
           <div>
             <span className="text-xl font-bold">
               {role === "passenger"
-                ? `Welcome, ${userName.split(" ")[0]}!`
+                ? `Welcome, ${userName?.split(" ")[0]}!`
                 : `Welcome, ${userName}!`}
             </span>
           </div>

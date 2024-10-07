@@ -76,7 +76,7 @@ function RouteCard({ start, end, role, foundRoutes , uid, routeIds}) {
      <RouteDetails
      start={start}
      end={end}
-     requests={[1]}
+     requests={[]}
      />
     );
   }
